@@ -86,7 +86,7 @@ circleArray.forEach(function (circle) {
 
 
 // swipe functionality
-
+//
 let startX = 0;
 let endX = 0;
 
@@ -95,19 +95,19 @@ const touchField = document.getElementById('touch');
 
 touchField.addEventListener('touchstart', function(event) {
     startX = event.changedTouches[0].screenX;
-    startY = event.changedTouches[0].screenY;
 }, false);
 
 touchField.addEventListener('touchend', function(event) {
     endX = event.changedTouches[0].screenX;
-    endY = event.changedTouches[0].screenY;
     touchDirection();
 }, false);
 
 const touchDirection = () => {
+  const nodeId = document.querySelector(".orange").id;
+  document.querySelector(".orange").classList.remove("orange");
     if (endX < startX) {
-        changeSlideLeft();
+      changeSlideRight(nodeId);
     } else if (endX > startX) {
-        changeSlideRight();
+      changeSlideLeft(nodeId);
     };
 };
