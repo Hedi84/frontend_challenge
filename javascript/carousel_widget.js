@@ -1,6 +1,4 @@
-// const slides = {
-//   "1": {}
-// };
+
 const slide1 = {
   title: "Learn new things",
   content: "This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long.",
