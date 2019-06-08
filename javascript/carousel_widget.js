@@ -1,3 +1,6 @@
+// const slides = {
+//   "1": {}
+// };
 const slide1 = {
   title: "Mobile learning and apps",
   content: "Learners expect experiences they can touch and tools which are accessible from anywhere. We use HTML5 to build responsive content which learners can navigate like the apps and websites they love. One experience on any device.",
@@ -28,32 +31,83 @@ slides[2] = slide3
 slides[3] = slide4
 
 
-left = document.querySelector("#arrow-left")
-
-
-left.addEventListener("click", (event) => {
-  active.previousSibling.classList.add("orange")
-  active.classList.remove("orange")
-
-
+document.querySelector("#arrow-left").addEventListener("click", (event) => {
+  const nodeId = document.querySelector(".orange").id;
+  document.querySelector(".orange").classList.remove("orange");
+  changeSlideLeft(nodeId);
 });
 
 document.querySelector("#arrow-right").addEventListener("click", (event) => {
-  const nodeId = document.querySelector(".orange").id
-  document.querySelector(".orange").classList.remove("orange")
-  if (Number(nodeId) < 4) {
-    document.getElementById(`${Number(nodeId) + 1}`).classList.add("orange")
-    document.getElementById('title').innerHTML = slides[nodeId].title
-    document.getElementById('content').innerHTML = slides[nodeId].content
-    document.getElementById('icon').className = slides[nodeId].icon
-  } else {
-    document.getElementById("1").classList.add("orange")
-    document.getElementById('title').innerHTML = slides[0].title
-    document.getElementById('content').innerHTML = slides[0].content
-    document.getElementById('icon').className = slides[0].icon
-  }
-
-
-
-
+  const nodeId = document.querySelector(".orange").id;
+  document.querySelector(".orange").classList.remove("orange");
+  changeSlideRight(nodeId);
 });
+
+const changeSlideRight = (nodeId) => {
+  if (Number(nodeId) < 4) {
+    document.getElementById(`${Number(nodeId) + 1}`).classList.add("orange");
+    document.getElementById('title').innerHTML = slides[nodeId].title;
+    document.getElementById('content').innerHTML = slides[nodeId].content;
+    document.getElementById('icon').className = slides[nodeId].icon;
+  } else {
+    document.getElementById("1").classList.add("orange");
+    document.getElementById('title').innerHTML = slides[0].title;
+    document.getElementById('content').innerHTML = slides[0].content;
+    document.getElementById('icon').className = slides[0].icon;
+  }
+};
+
+const changeSlideLeft = (nodeId) => {
+  if (Number(nodeId) > 1) {
+    document.getElementById(`${Number(nodeId) - 1}`).classList.add("orange");
+    document.getElementById('title').innerHTML = slides[nodeId - 2].title;
+    document.getElementById('content').innerHTML = slides[nodeId - 2].content;
+    document.getElementById('icon').className = slides[nodeId - 2].icon;
+  } else {
+    document.getElementById("4").classList.add("orange");
+    document.getElementById('title').innerHTML = slides[3].title;
+    document.getElementById('content').innerHTML = slides[3].content;
+    document.getElementById('icon').className = slides[3].icon;
+  }
+};
+
+const circleArray = document.querySelectorAll(".circle");
+
+circleArray.forEach(function (circle) {
+  circle.addEventListener("click", (event) => {
+    const previousActive = document.querySelector(".orange");
+    if (event.currentTarget != previousActive ) {
+      previousActive.classList.remove("orange");
+      const nodeClicked = event.currentTarget;
+      changeSlideRight(nodeClicked.id - 1);
+    };
+  });
+});
+
+
+// swipe functionality
+
+let startX = 0;
+let endX = 0;
+
+
+const touchField = document.getElementById('touch');
+
+touchField.addEventListener('touchstart', function(event) {
+    startX = event.changedTouches[0].screenX;
+    startY = event.changedTouches[0].screenY;
+}, false);
+
+touchField.addEventListener('touchend', function(event) {
+    endX = event.changedTouches[0].screenX;
+    endY = event.changedTouches[0].screenY;
+    touchDirection();
+}, false);
+
+const touchDirection = () => {
+    if (endX < startX) {
+        changeSlideLeft();
+    } else if (endX > startX) {
+        changeSlideRight();
+    };
+};
