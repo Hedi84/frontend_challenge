@@ -1,25 +1,25 @@
-
+// this is the content of the slides saved as objects, stored in an array.
 const slide1 = {
-  title: "Learn new things",
-  content: "This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long.",
+  title: "Mobile learning and apps",
+  content: "Learners expect experiences they can touch and tools which are accessible from anywhere. We use HTML5 to build responsive content which learners can navigate like the apps and websites they love. One experience on any device.",
   icon: "far fa-copy"
 }
 
 const slide2 = {
-  title: "Make Videos",
-  content: "This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long. This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long. This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long.",
+  title: "Animations and video",
+  content: "An eye-popping animation is a great way to open a course. It’s also a standalone asset to help you promote it. You can have a message from your CEO to open the training, video testimonials from some of your employees, interviews with your subject matter experts or dramatised scenarios using actors. You can film in a studio, on location or in virtual worlds (using green or blue screen).",
   icon: "fas fa-video"
 }
 
 const slide3 = {
-  title:"Talk and Talk More",
-  content: "This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long.",
+  title:"Interaction and scenarios",
+  content: "What makes great classroom training great? Often it’sthe instructor involving the audience, encouraginginteraction – and making eye contact. We believe onlinetraining is no different. Our elearning solutions are fullyinteractive, using activities, quizzes and highlydeveloped scenarios.",
   icon:"fas fa-chalkboard-teacher"
 }
 
 const slide4 = {
-  title:"Don't Stop Playing",
-  content: "This line should have more information about the product it's selling. This could be any kind of infoormation, but not too long.",
+  title:"Gamification",
+  content: "Game mechanics in learning motivate achievement bysatisfying psychological needs. We build in performanceindicators that measure how well learners doing as theyanswer questions, complete tasks or make decisions.This flags up weaker areas early on and spurs them onwhen they’re on a roll.",
   icon:"fas fa-gamepad"
 }
 const slides = []
@@ -28,7 +28,7 @@ slides[1] = slide2
 slides[2] = slide3
 slides[3] = slide4
 
-
+// the left and right arrows of the carousel
 document.querySelector("#arrow-left").addEventListener("click", (event) => {
   const nodeId = document.querySelector(".orange").id;
   document.querySelector(".orange").classList.remove("orange");
@@ -41,6 +41,7 @@ document.querySelector("#arrow-right").addEventListener("click", (event) => {
   changeSlideRight(nodeId);
 });
 
+// To not repeat this code, there are two change slide functions for left and right
 const changeSlideRight = (nodeId) => {
   if (Number(nodeId) < 4) {
     document.getElementById(`${Number(nodeId) + 1}`).classList.add("orange");
@@ -69,6 +70,7 @@ const changeSlideLeft = (nodeId) => {
   }
 };
 
+// these are the circle buttons of the carousel
 const circleArray = document.querySelectorAll(".circle");
 
 circleArray.forEach(function (circle) {
@@ -82,12 +84,9 @@ circleArray.forEach(function (circle) {
   });
 });
 
-
 // swipe functionality
-//
 let startX = 0;
 let endX = 0;
-
 
 const touchField = document.getElementById('touch');
 
@@ -101,11 +100,13 @@ touchField.addEventListener('touchend', function(event) {
 }, false);
 
 const touchDirection = () => {
-  const nodeId = document.querySelector(".orange").id;
-  document.querySelector(".orange").classList.remove("orange");
+  if (endX != startX) {
+    const nodeId = document.querySelector(".orange").id;
+    document.querySelector(".orange").classList.remove("orange");
     if (endX < startX) {
       changeSlideRight(nodeId);
     } else if (endX > startX) {
       changeSlideLeft(nodeId);
     };
+  }
 };
